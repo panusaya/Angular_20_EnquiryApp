@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+</head>
+<style>
+.overlay{
+
+  position:fixed;
+
+  top:0;
+  left:0;
+
+  width:100%;
+  height:100%;
+
+  background:rgba(0,0,0,0.5);
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  z-index:99999;
+
+}
+
+
+.alert-box{
+
+  width:350px;
+
+  background:white;
+
+  padding:30px;
+
+  border-radius:12px;
+
+  text-align:center;
+
+  position:relative;
+
+  animation:popup .3s ease;
+
+  box-shadow:0 10px 30px rgba(0,0,0,.3);
+
+}
+
+
+.close-btn{
+
+  position:absolute;
+
+  right:15px;
+
+  top:10px;
+
+  border:none;
+
+  background:none;
+
+  font-size:20px;
+
+  cursor:pointer;
+
+}
+
+
+.icon{
+
+  width:70px;
+
+  height:70px;
+
+  border-radius:50%;
+
+  margin:auto;
+
+  display:flex;
+
+  justify-content:center;
+
+  align-items:center;
+
+  font-size:40px;
+
+  color:white;
+
+}
+
+
+/* .icon.success{
+
+  background:#28a745;
+
+} */
+
+
+.icon.error{
+
+  background:#dc3545;
+
+}
+
+
+.icon.warning{
+
+  background:#ffc107;
+
+  color:black;
+
+}
+
+
+.icon.info{
+
+  background:#17a2b8;
+
+}
+
+
+.ok-btn{
+
+  padding:10px 35px;
+
+  border:none;
+
+  background:#333;
+
+  color:white;
+
+  border-radius:5px;
+
+  cursor:pointer;
+
+}
+
+
+@keyframes popup{
+
+from{
+
+  transform:scale(.5);
+
+  opacity:0;
+
+}
+
+to{
+
+  transform:scale(1);
+
+  opacity:1;
+
+}
+
+}
+</style>
+<body>
+    <div class="overlay" *ngIf="show" (click)="closeAlert()">
+
+    <div class="alert-box" (click)="$event.stopPropagation()">
+
+    <!-- <button class="close-btn" (click)="closeAlert()">
+      ✖
+    </button> -->
+
+    <div class="icon" [ngClass]="type">
+
+      <span *ngIf="type=='success'">✔</span>
+      <span *ngIf="type=='error'">✖</span>
+      <span *ngIf="type=='warning'">⚠</span>
+      <span *ngIf="type=='info'">ℹ</span>
+
+    </div>
+
+    <h2>{{type | titlecase}}</h2>
+
+    <p style="font-size: large;">{{message}}</p>
+
+    <button class="ok-btn" (click)="closeAlert()">
+      Close
+    </button>
+
+  </div>
+
+</div>
+    <!-- <div *ngIf="show" class="alert" [ngClass]="type">
+  {{ message }}
+</div> -->
+</body>
+</html>
+

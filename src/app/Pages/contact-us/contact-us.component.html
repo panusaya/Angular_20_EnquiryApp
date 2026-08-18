@@ -1,0 +1,49 @@
+<section class="py-5">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <h2> Reach Out To Us </h2>
+
+                <p>📍 Pune, Maharashtra </p>
+
+                <p>☎ +91 6785678767</p>
+
+                <p>📧 support@enquiry.com </p>
+            </div>
+
+            <div class="col-lg-7">
+                <!-- Template-form-validation -->
+                <form>
+
+                    <input class="form-control mb-3" #name="ngModel" [(ngModel)]="contactObject.name" name="name" placeholder="Name" required minlength="5" required type="text">
+                    <div class="text-danger">
+                        @if (name.errors ?. ['required']) {
+                          <span>This is required</span>
+                        }
+                        @if (name.errors?. ['minlength']) {
+                              <span>Minium 5 char</span>
+                        }
+                        
+                    </div>
+
+                    <input class="form-control mb-3" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                     #email="ngModel" [(ngModel)]="contactObject.email" name="email" placeholder="Email" required type="email">
+                    <div class="text-danger">
+                        @if (email.errors ?. ['required']) {
+                          <span>This is required</span>
+                        }
+                        @if (email.errors ?. ['pattern']) {
+                            <span>Invalid email format</span>
+                        }
+                    </div>
+
+                    <textarea class="form-control mb-3" [(ngModel)]="contactObject.message" name="email" rows="5" required></textarea>
+    
+                    <button class="btn btn-primary" (click)="sendMessage()">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</section>

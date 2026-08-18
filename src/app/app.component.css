@@ -1,0 +1,67 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+.logo p{
+    color:blue;
+    font-size:30px;
+    
+}
+
+.logo{
+display:flex;
+    justify-content:space-between !important;
+    background-color: black;
+    padding: 10px;
+}
+.nav-links{
+    display:flex !important;
+    padding-left:20px;
+}
+
+li{
+    list-style:none;
+    padding:10px;
+   
+}
+
+nav li a{
+    text-decoration:none;
+}
+nav li a:hover{
+    color:red;
+    transition:0.5s;
+}
+
+.EA-Login-Btn{
+    background-color: bisque;
+    color: Black;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.EA-MenuLink{
+    display: flex;
+}
+
+.nav-links ul li a{
+    color: #fff;
+}
+
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.nav-links li a:hover {
+  color: #38bdf8;
+}
+
+.nav-links li a.active {
+  color: #38bdf8;
+  font-weight: 600;
+}

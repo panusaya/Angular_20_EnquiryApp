@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enquiry Form</title>
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f5f7fb;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .08);
+        }
+
+        .section-title {
+            font-weight: 600;
+            color: #0d6efd;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            box-shadow: none;
+            border-color: #0d6efd;
+        }
+
+        .btn {
+            min-width: 130px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-5">
+
+        <div class="card">
+
+            <div class="card-header bg-primary text-white p-4">
+                <h3 class="mb-0">
+                    <i class="bi bi-chat-left-text"></i>
+                    Enquiry Management Form
+                </h3>
+            </div>
+
+            <div class="card-body p-4">
+
+                @if (messageError) {
+                <div class="alert alert-danger" role="alert">{{ messageError }}</div>
+                }
+
+                <form>
+
+                    <!-- ================= Customer Details ================= -->
+
+                    <div class="section-title">
+                        <i class="bi bi-person-circle"></i>
+                        Customer Information
+                    </div>
+
+                    <div class="row">
+                          <!-- form validation(Tempelate) -->
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Customer Name</label>
+                            <input type="text" class="form-control" #name="ngModel" placeholder="Enter customer name" 
+                                [(ngModel)]="newInquiryObj.customerName" name="customerName" required minlength="5">
+                                <div class="text-danger">
+                                    @if (name.touched && name.errors?.['required']){
+                                        <span>Tis is required filed</span>
+                                    }
+                                   @if(name.touched && name.errors?.['minlength']){
+                                       <span>Minimum 5 char</span>
+                                   }
+                                     
+                                </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" #customerPhone="ngModel" required="" minlength="10" placeholder="Enter phone number"
+                                [(ngModel)]="newInquiryObj.customerPhone" name="customerPhone">
+                                <div class="text-danger">
+                                  @if(customerPhone.touched && customerPhone.errors?.['required']){
+                                   <span>This is required cc</span>
+                                  }
+                                   @if(customerPhone.touched && customerPhone.errors?.['minlength']){
+                                   <span>Minimum 10 digits</span>
+                                  }
+                                </div>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" #email="ngModel" required pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" class="form-control"  placeholder="Enter email"
+                                [(ngModel)]="newInquiryObj.customerEmail" name="customerEmail">
+                                <div class="text-danger">
+                                    @if (email.touched && email.errors?.['required']) {
+                                      <span>This is required</span>
+                                    }
+                                    @if (email.touched && email.errors?. ['pattern']) {
+                                        <span>abc@gmail.com</span>
+                                    }
+                                    
+                                </div>
+                        </div>
+
+
+                    </div>
+
+                    <!-- ================= Enquiry Details ================= -->
+
+                    <div class="section-title mt-4">
+                        <i class="bi bi-file-earmark-text"></i>
+                        Enquiry Details
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" [(ngModel)]="newInquiryObj.categoryId" name="categoryId">
+                                <option value="" selected disabled>Select Category</option>
+                                <option *ngFor="let item of $categoryList |async" [value]="item.categoryId">
+                                    {{item.categoryName}}</option>
+
+
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Enquiry Type</label>
+                            <input type="text" class="form-control" placeholder="Ex: Sales, Support, Service"
+                                [(ngModel)]="newInquiryObj.enquiryType" name="enquiryType">
+                        </div>
+
+
+                        @if(newInquiryObj.enquiryId !== 0){
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" [(ngModel)]="newInquiryObj.statusId" name="statusId">
+                                <option value="" selected>Select Status</option>
+
+                                <option *ngFor="let item of $statusList |async" [value]="item.statusId">{{item.statusName}}
+                                </option>
+
+
+
+                            </select>
+                        </div>
+                        }
+
+
+                        <div class="col-md-4 mb-3 d-flex align-items-end">
+
+                            <div class="form-check form-switch fs-5">
+                                <input class="form-check-input" type="checkbox" id="converted" name="converted"
+                                    [(ngModel)]="newInquiryObj.isConverted" name="isConverted">
+
+                                <label class="form-check-label ms-2" for="converted">
+                                    Mark as Converted
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <label class="form-label">Message</label>
+                            <textarea rows="5" class="form-control" placeholder="Write customer enquiry..."
+                                [(ngModel)]="newInquiryObj.message" name="message"></textarea>
+                        </div>
+
+                    </div>
+
+                    <!-- ================= Status ================= -->
+
+                    <!-- <div class="section-title mt-4">
+                        <i class="bi bi-clipboard-check"></i>
+                        Dates & Follow Up
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Enquiry Date</label>
+                            <input type="datetime-local" class="form-control" [(ngModel)]="newInquiryObj.enquiryDate"
+                                name="enquiryDate">
+                        </div>
+
+
+                        <div class="col-md-4 mb-3">
+                            <label class="form-label">Follow Up Date</label>
+                            <input type="datetime-local" class="form-control" [(ngModel)]="newInquiryObj.followUpDate"
+                                name="followUpDate">
+                        </div>
+
+
+                    </div> -->
+
+                    <!-- ================= Feedback ================= -->
+
+                    <div class="section-title mt-4">
+                        <i class="bi bi-chat-square-dots"></i>
+                        Additional Notes
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Feedback</label>
+
+                        <textarea rows="4" class="form-control"
+                            placeholder="Enter follow-up notes or customer feedback..."
+                            [(ngModel)]="newInquiryObj.feedback" name="feedback"></textarea>
+                    </div>
+
+                    <!-- Buttons -->
+
+                    <div class="text-end mt-4">
+
+                        <button type="reset" class="btn btn-outline-secondary me-2">
+                            <i class="bi bi-arrow-counterclockwise"></i>
+                            Reset
+                        </button>
+
+                        <button type="button" class="btn btn-primary" *ngIf="newInquiryObj.enquiryId == 0" (click)="onSaveEnquiry()">
+                            <i class="bi bi-save"></i>
+                            Save Enquiry
+                        </button>
+                        <button type="button" class="btn btn-primary" *ngIf="newInquiryObj.enquiryId !== 0" (click)="onUpdateEnquiry()">
+                            <i class="bi bi-save"></i>
+                            update Enquiry
+                        </button>
+                        <!-- @if (newInquiryObj.enquiryId == 0) {
+                        <button type="button" class="btn btn-primary" (click)="onSaveEnquiry()">
+                            <i class="bi bi-save"></i>
+                            Save Enquiry
+                        </button>
+                        } @else {
+                        <button type="button" class="btn btn-primary" (click)="onUpdateEnquiry()">
+                            <i class="bi bi-save"></i>
+                            Update Enquiry
+                        </button>
+                        } -->
+
+                        <button type="submit" class="btn btn-danger ms-2" (click)="onCancelEnquiry()">
+                            <i class="bi bi-save"></i>
+                            Cancel Enquiry
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
