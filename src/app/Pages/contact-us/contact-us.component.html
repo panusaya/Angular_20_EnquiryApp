@@ -14,14 +14,14 @@
 
             <div class="col-lg-7">
                 <!-- Template-form-validation -->
-                <form>
+                <form >
 
                     <input class="form-control mb-3" #name="ngModel" [(ngModel)]="contactObject.name" name="name" placeholder="Name" required minlength="5" required type="text">
                     <div class="text-danger">
-                        @if (name.errors ?. ['required']) {
+                        @if (name.touched && name.errors ?. ['required']) {
                           <span>This is required</span>
                         }
-                        @if (name.errors?. ['minlength']) {
+                        @if (name.touched && name.errors?. ['minlength']) {
                               <span>Minium 5 char</span>
                         }
                         
@@ -30,10 +30,10 @@
                     <input class="form-control mb-3" pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
                      #email="ngModel" [(ngModel)]="contactObject.email" name="email" placeholder="Email" required type="email">
                     <div class="text-danger">
-                        @if (email.errors ?. ['required']) {
+                        @if (email.touched && email.errors ?. ['required']) {
                           <span>This is required</span>
                         }
-                        @if (email.errors ?. ['pattern']) {
+                        @if (email.touched && email.errors ?. ['pattern']) {
                             <span>Invalid email format</span>
                         }
                     </div>
