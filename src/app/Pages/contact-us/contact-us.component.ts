@@ -22,16 +22,5 @@ export class ContactUsComponent {
 
   rollNo = 3;
 
-  constructor(){
-  const promise = new Promise((resolve, reject)=> {
-  if(this.rollNo %3 == 0){
-  resolve('num 1 is even')
-  console.log('resolved')
-  } else {
-    reject('num 1 is odd')
-  }
-  })
-
-
-  }
+ 
 }
