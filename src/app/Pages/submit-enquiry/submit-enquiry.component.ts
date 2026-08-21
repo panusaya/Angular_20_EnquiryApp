@@ -96,56 +96,6 @@ constructor(private router: Router) {
   //     }
   //   })
   // }
-
-  // onSaveEnquiry(){
-  //  //this.newInquiryObj.statusId = '1';
-  //   this.masterService.saveEnquiry(this.newInquiryObj).subscribe({
-  //     next :(result:any)=>{
-  //             console.log("Create Response =>", result);
-
-  //     alert('Enquiry Added Successfully');  
-  //     },
-  //      error:(err) => {
-  //       console.error('Alert Error From API');
-  //     }
-  //   })
-  // }
-// onSaveEnquiry() {
- 
-//   console.log("Sending Data =>", this.newInquiryObj);
-//    this.newInquiryObj.statusId = '285';
-//   this.masterService.saveEnquiry(this.newInquiryObj).subscribe({
-//     next: (result: any) => {
-//       console.log("API Success =>", result);
-//       this.masterService.editEnquiryObj = null;
-//       alert("Enquiry Added Successfully");
-//     },
-//     error: (err) => {
-//       console.log("API Error =>", err);
-//       console.log("Status =>", err.status);
-//       console.log("Body =>", err.error);
-//     }
-//   });
-
-// } 
-
-// onUpdateEnquiry() {
-
-//   console.log("Updating =>", this.newInquiryObj);
-
-//   this.masterService.updateEnquiry(this.newInquiryObj).subscribe({
-//     next: (result: any) => {
-//       console.log("Update Response =>", result);
-//        this.masterService.editEnquiryObj = null;
-//       alert("Enquiry Updated Successfully");
-//     },
-//     error: (err) => {
-//       console.error(err);
-//       alert("Update Failed");
-//     }
-//   });
-
-// }
   
 onSaveEnquiry() {
   console.log("Sending Data =>", this.newInquiryObj);
